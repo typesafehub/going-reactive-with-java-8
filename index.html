@@ -221,54 +221,147 @@
                     <h2>Reactive Apps with Akka</h2>
 
                     <ul>
-                        <li class="fragment">Actor based</li>
-                        <li class="fragment">Event-Driven</li>
-                        <li class="fragment">Non-request based lifecycle</li>
-                        <li class="fragment">Managed Concurrency</li>
-                        <li class="fragment">Isolated Failure Handling (Supervision)</li>
-                        <li class="fragment">Scales up & out</li>
+                        <li class="fragment">Actor Based</li>
+                        <li class="fragment">Highly Concurrent</li>
+                        <li class="fragment">Asynchronous</li>
+                        <li class="fragment">Distributable</li>
+                        <li class="fragment">Scales Up & Out</li>
+                    </ul>
+                </section>
+
+                <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
+                    <h2>Akka Actor Properties</h2>
+
+                    <ul>
+                        <li class="fragment">Message Based</li>
+                        <li class="fragment">Event Driven</li>
+                        <li class="fragment">Non-Request Based Lifecycle</li>
+                        <li class="fragment">Isolated Failure Handling<br>(Supervision)</li>
                     </ul>
                 </section>
 
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
                     <script type="text/template">
                         ### Actors with Lambdas
+                        <p>Easily define the behavior of your actor</p>
 
                         ```java
                             public static class Greeter extends AbstractActor {
-                                String greeting = "";
+                              String greeting = "";
 
-                                public Greeter() {
-                                    receive(ReceiveBuilder.
-                                        match(WhoToGreet.class, message -> greeting = "hello, " + message.who).
-                                        match(Greet.class, message -> sender().tell(new Greeting(greeting), self())).
-                                        matchAny(this::unhandled).
-                                        build()
-                                    );
-                                }
+                              public Greeter() {
+                                receive(ReceiveBuilder.
+                                  match(WhoToGreet.class, message -> greeting = "hello, " + message.who).
+                                  match(Greet.class, message -> sender().tell(new Greeting(greeting), self())).
+                                  build());
+                              }
                             }
                         ```
                     </script>
                 </section>
 
-                <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
                     <script type="text/template">
-                        ### Demo: Reactive Stocks (Java 8)
+                        ### Handing off Work
+                        <p>For responsiveness and/or fault tolerance</p>
 
-                        * Get the Activator Template: *** TODO ***
-                        * Akka Actors for thread-safe state and non-request based events
-                        * Play Framework for Reactive Composition, Reactive Push, and a JavaScript UI
+                        ```java
+                          public class HandoffActor extends AbstractActor {{
+                            receive(ReceiveBuilder.matchEquals("hello", s -> {
+                              ActorRef worker =
+                                context().actorOf(Props.create(AbstractActor.class,
+                                  () -> new AbstractActor() {{
+                                    receive(ReceiveBuilder.
+                                      match(String.class, s -> {
+                                        sender().tell(s.toUpperCase(), self());
+                                        self().tell(PoisonPill.getInstance(), self());
+                                      }).build());
+                                  }}));
+                              worker.forward(s, context());
+                            }).build());
+                          }}
+                        ```
                     </script>
                 </section>
 
-                <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
                     <script type="text/template">
-                        ### Get Started with Activator
+                        ### Supervision with Lambdas 
+                        <p>Take different actions depending on the failure</p>
 
-                        * Hello Akka (Java 8)  *** TODO ***
-                        * Finite State Machines with Actors and Java 8  *** TODO ***
-                        * Go Reactive with Java 8 and Play Framework *** TODO ***
+                        ```java
+                            private static SupervisorStrategy strategy =
+                              new OneForOneStrategy(10, Duration.create("1 minute"), DeciderBuilder.
+                                match(ArithmeticException.class, e -> resume()).
+                                match(NullPointerException.class, e -> restart()).
+                                match(IllegalArgumentException.class, e -> stop()).
+                                matchAny(o -> escalate()).build());
+
+                            @Override
+                            public SupervisorStrategy supervisorStrategy() {
+                              return strategy;
+                            }
+                        ```
                     </script>
+                </section>
+
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+                    <script type="text/template">
+                        ### Changing Behavior with Lambdas
+                        <p>Quickly implement changes in behavior</p>
+
+                        ```java
+                           public class Swapper extends AbstractLoggingActor {
+                             public Swapper() {
+                               receive(ReceiveBuilder.
+                                 matchEquals(Swap, s -> {
+                                   log().info("Hi");
+                                   context().become(ReceiveBuilder.
+                                     matchEquals(Swap, x -> {
+                                       log().info("Ho");
+                                       context().unbecome(); // go back to previous behavior
+                                     }).build(), false); // push on top keep old behavior
+                                 }).build());
+                             }
+                           }
+                        ```
+                    </script>
+                </section>
+
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+                    <script type="text/template">
+                        ### Creating Finite State Machines
+                        <p class="tsBlueText">TODO</p>
+                    </script>
+                </section>
+
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+                    <script type="text/template">
+                        ### Show Java/Scala interop library
+                        <p class="tsBlueText">TODO</p>
+                    </script>
+                </section>
+
+                <section data-background="assets/typesafe-logo-reverse.png" data-background-color="#53cdec" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
+                    <h3 class="tsWhite">Demo: Reactive Stocks (Java 8)</h3>
+
+                    <ul class="tsWhite">
+                        <li>Get the Activator Template: *** TODO ***</li>
+                        <li>Akka Actors for thread-safe state and non-request based events</li>
+                        <li>Play Framework for Reactive Composition, Reactive Push, and a JavaScript UI</li>
+                    </ul>
+                </section>
+
+                <section data-background="assets/typesafe-logo-reverse.png" data-background-color="#f16665" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
+                    <h3 class="tsWhite">Get Started with Activator</h3>
+
+                    <ul class="tsWhite">
+                        <li>Hello Akka (Java 8)  *** TODO ***</li>
+                        <li>Go Reactive with Java 8 and Play Framework *** TODO ***</li>
+                        <li>Finite State Machines with Actors and Java 8  *** TODO ***</li>
+                        <li>Supervision with Actors and Java 8  *** TODO ***</li>
+                        <li>Akka Persistence with Actors and Java 8  *** TODO ***</li>
+                    </ul>
                 </section>
 
                 <section data-background-color="#103a51">
