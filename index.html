@@ -75,6 +75,33 @@
                     </ul>
                 </section>
 
+                 <section data-markdown data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
+                    <script type="text/template">
+                        ## Routes
+                        ### Declarative, Type-safe URL Mapping
+
+                            VERB    PATH                CONTROLLER_METHOD
+
+                            GET     /                   controllers.Application.index()
+                            GET     /foo                controllers.Application.foo()
+                    </script>
+                </section>
+
+                 <section data-markdown data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
+                    <script type="text/template">
+                        ## Controllers
+                        ### Synchronous Request
+
+                        <small>Useful for requests that dont have anything to not block on</small>
+
+                        ```java
+                            public static Result syncFoo() {
+                                return ok("sync foo");
+                            }
+                        ```
+                    </script>
+                </section>
+
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
                     <h2>Reactive Requests</h2>
                     <img src="assets/reactive-requests.png">
@@ -82,16 +109,6 @@
 
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
                     <script type="text/template">
-                        ### Synchronous Request
-
-                        <small>Useful for requests that don't have anything to not block on</small>
-
-                        ```java
-                            public static Result syncFoo() {
-                                return ok("sync foo");
-                            }
-                        ```
-
                         ### Asynchronous Request
 
                         <small>Under the covers Play implements all requests in this way</small>
@@ -111,9 +128,14 @@
                         <small>Needs to have something to not block on</small>
 
                         ```java
-                            public static F.Promise<Result> asyncNonBlockingFoo() {
-                                return F.Promise.delayed(() -> ok("async non-blocking foo"), 5, TimeUnit.SECONDS);
-                            }
+                           public static Integer longRunningCalculation() {
+                                return (5134 * 5789) / 349;
+                           }
+
+                           public static F.Promise<Result> basicPromise() {
+                                F.Promise<Integer> promise = F.Promise.promise(() -> longRunningCalculation());
+                                return promise.map((Integer i) -> ok("The calculation result is: " + i));
+                           }
                         ```
                     </script>
                 </section>
