@@ -39,7 +39,8 @@
 
                 <section data-background-color="#103a51">
                     <h2 class="tsWhite">Going Reactive with Java 8</h2>
-                    <a href="http://www.typesafe.com"><img src="assets/typesafe-logo-reverse.png" height=100px></a>
+                    <p><a href="http://www.typesafe.com"><img src="assets/typesafe-logo-reverse.png" height=100px></a></p>
+                    <p class="tsWhite">Ryan Knight &amp; Björn Antonsson</p>
                 </section>
 
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
@@ -56,12 +57,13 @@
                     <h2>Users Want Reactive Apps</h2>
                     <h3 class="tsBlueText">www.ReactiveManifesto.org</h3>
 
-                    <img src="assets/full-reactive.png">
+                    <p><img src="assets/full-reactive.png"></p>
                 </section>
 
                 <section data-background="assets/typesafe-logo-reverse.png" data-background-color="#92d13d" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
                     <h2 class="tsWhite">Reactive Web Apps with<br>Play Framework</h2>
-                    <img src="assets/play-logo-reverse.png" height="100px">
+                    <p><img src="assets/play-logo-reverse.png" height="100px"></p>
+                    <p class="tsWhite"><a style="color:white" href="http://www.playframework.com">http://www.playframework.com</a></p>
                 </section>
 
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
@@ -77,8 +79,9 @@
 
                  <section data-markdown data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
                     <script type="text/template">
-                        ## Routes
-                        ### Declarative, Type-safe URL Mapping
+                        ### Routes
+
+                        Declarative, Type-safe URL Mapping
 
                             VERB    PATH                CONTROLLER_METHOD
 
@@ -89,10 +92,11 @@
 
                  <section data-markdown data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
                     <script type="text/template">
-                        ## Controllers
-                        ### Synchronous Request
+                        ### Controllers
 
-                        <small>Useful for requests that dont have anything to not block on</small>
+                        Synchronous Request
+
+                        Useful for requests that dont have anything to not block on
 
                         ```java
                             public static Result syncFoo() {
@@ -104,14 +108,14 @@
 
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
                     <h2>Reactive Requests</h2>
-                    <img src="assets/reactive-requests.png">
+                    <p><img src="assets/reactive-requests.png"></p>
                 </section>
 
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
                     <script type="text/template">
                         ### Asynchronous Request
 
-                        <small>Under the covers Play implements all requests in this way</small>
+                        Under the covers Play implements all requests in this way
 
                         ```java
                             public static F.Promise<Result> asyncFoo() {
@@ -125,7 +129,7 @@
                     <script type="text/template">
                         ### Reactive Request (Async + Non-Blocking)
 
-                        <small>Needs to have something to not block on</small>
+                        Needs to have something to not block on
 
                         ```java
                            public static Integer longRunningCalculation() {
@@ -144,7 +148,8 @@
                     <script type="text/template">
                         ### Reactive Requests
 
-                        <small>Two chained requests (client to server & server to typesafe.com) - both async & non-blocking</small>
+                        Two chained requests (client to server & server to typesafe.com) <br>
+                        both async & non-blocking
 
                         ```java
                             public static F.Promise<Result> reactiveRequest() {
@@ -159,7 +164,8 @@
                     <script type="text/template">
                         ### Reactive Composition
 
-                        <small>Three requests, two in parrallel (depending on thread availability), - all async & non-blocking</small>
+                        Three requests, two in parrallel (depending on thread availability)<br>
+                        all async & non-blocking
 
                         ```java
                             public static F.Promise<Result> reactiveComposition() {
@@ -178,7 +184,7 @@
                     <script type="text/template">
                         ### Reactive Push with SSE
 
-                        <small>Async & Non-Blocking Server to Client Push</small>
+                        Async & Non-Blocking Server to Client Push
 
                         <small>Java Controller</small>
 
@@ -207,7 +213,7 @@
                     <script type="text/template">
                         ### 2-Way Reactive with WebSockets
 
-                        <small>Bi-directional reactive push</small>
+                        Bi-directional reactive push
 
                         <small>Java Controller with Java 8 Method Reference</small>
 
@@ -235,8 +241,8 @@
 
                 <section data-background="assets/typesafe-logo-reverse.png" data-background-color="#2e6d82" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
                     <h2 class="tsWhite">Reactive Apps with Akka</h2>
-                    <p>
-                    <img src="assets/akka-logo-reverse.png" height="150px">
+                    <p><img src="assets/akka-logo-reverse.png" height="150px"></p>
+                    <p class="tsWhite"><a style="color:white" href="http://akka.io">http://akka.io</a></p>
                 </section>
 
                 <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
@@ -257,6 +263,7 @@
                     <ul>
                         <li class="fragment">Message Based</li>
                         <li class="fragment">Event Driven</li>
+                        <li class="fragment">Sane Concurrency Model</li>
                         <li class="fragment">Non-Request Based Lifecycle</li>
                         <li class="fragment">Isolated Failure Handling<br>(Supervision)</li>
                     </ul>
@@ -295,6 +302,7 @@
                                   () -> new AbstractActor() {{
                                     receive(ReceiveBuilder.
                                       match(String.class, s -> {
+                                        // long running and/or dangerous computation
                                         sender().tell(s.toUpperCase(), self());
                                         self().tell(PoisonPill.getInstance(), self());
                                       }).build());
@@ -342,7 +350,7 @@
                                      matchEquals(Swap, x -> {
                                        log().info("Ho");
                                        context().unbecome(); // go back to previous behavior
-                                     }).build(), false); // push on top keep old behavior
+                                     }).build(), false); // push on top and keep old behavior
                                  }).build());
                              }
                            }
@@ -352,15 +360,119 @@
 
                <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
                     <script type="text/template">
-                        ### Creating Finite State Machines
-                        <p class="tsBlueText">TODO</p>
+                    <h2>Actors as Finite State Machines</h2>
+
+                    <ul>
+                        <li class="fragment">A Fixed Number of States</li>
+                        <li class="fragment">Defined Transitions Between States</li>
+                        <li class="fragment">Used to Model for Example<br>
+                        <ul>
+                            <li class="fragment">Protocols</li>
+                            <li class="fragment">Processes</li>
+                        </ul></li>
+                    </ul>
                     </script>
                 </section>
 
                <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
                     <script type="text/template">
-                        ### Show Java/Scala interop library
-                        <p class="tsBlueText">TODO</p>
+                        ### Finite State Machines
+
+                        Defining Behavior in States
+
+                        ```java
+                            public class Buncher extends AbstractFSM<State, Data> {{
+                              startWith(Idle, Uninitialized);
+
+                              when(Idle,
+                                matchEvent(SetTarget.class, Uninitialized.class,
+                                  (setTarget, uninitialized) ->
+                                    stay().using(new Todo(setTarget.getRef(), new LinkedList<>()))));
+ 
+                              when(Active, Duration.create(1, "second"),
+                                matchEvent(Arrays.asList(Flush.class, StateTimeout()), Todo.class,
+                                  (event, todo) -> goTo(Idle).using(todo.copy(new LinkedList<>()))));
+
+                              // ... transitions left out
+
+                              initialize();
+                            }}
+                        ```
+                    </script>
+                </section>
+
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+                    <script type="text/template">
+                        ### Finite State Machines
+
+                        Defining Transition Behavior
+
+                        ```java
+                            public class Buncher extends AbstractFSM<State, Data> {{
+                              startWith(Idle, Uninitialized);
+
+                              // ... state behavior left out
+
+                              onTransition(
+                                matchState(Active, Idle, () -> {
+                                  // reuse this matcher
+                                  final UnitMatch<Data> m = UnitMatch.create(
+                                    matchData(Todo.class,
+                                      todo -> todo.getTarget().tell(new Batch(todo.getQueue()), self())));
+                                  m.match(stateData());
+                                }).
+                                state(Idle, Active, () -> {/* Do something here */}));
+
+                              initialize();
+                            }}
+                        ```
+                    </script>
+                </section>
+
+
+                <section data-background="assets/typesafe-logo-reverse.png" data-background-color="#dc322f" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
+                    <h2 class="tsWhite">Interoperability</h2>
+                    <p><img src="assets/java-logo-reverse.png" height="130px"><img src="assets/1x1.png" height="1px" width="50px"><img src="assets/scala-logo-reverse.png" height="100px"></p>
+                    <p class="tsWhite"><a style="color:white" href="https://github.com/scala/scala-java8-compat">https://github.com/scala/scala-java8-compat</a></p>
+
+                </section>
+
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+                    <script type="text/template">
+                        ### Java Scala Interoperability
+
+                        Seamlessly Work with Scala Futures
+
+                        ```java
+                            import scala.concurrent.*;
+                            import static scala.compat.java8.JFunction.*;
+
+                            class Test {
+                              private static Future<Integer> futureExample(Future<String> future, ExecutionContext ec) {
+                                return future.map(func(s -> s.toUpperCase()), ec).map(func(s -> s.length()), ec);
+                              }
+                            }
+                        ```
+                    </script>
+                </section>
+
+               <section data-background="assets/typesafe.png" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%" data-markdown>
+                    <script type="text/template">
+                        ### Java Scala Interoperability
+
+                        Seamlessly Convert Between Java CompletionStage and Scala Future
+
+                        ```java
+                            import java.util.concurrent.CompletionStage;
+                            import scala.concurrent.Future;
+                            import static scala.concurrent.java8.FutureConverter.*;
+
+                            final CompletionStage<String> cs = ... // from an async Java API
+                            final Future<String> f = toScala(cs);
+                            ...
+                            final Future<Integer> f2 = ... // from an async Scala API
+                            final CompletionStage<Integer> cs2 = toJava(f2);
+                        ```
                     </script>
                 </section>
 
@@ -368,21 +480,29 @@
                     <h3 class="tsWhite">Demo: Reactive Stocks (Java 8)</h3>
 
                     <ul class="tsWhite">
-                        <li>Get the Activator Template: *** TODO ***</li>
+                        <li>Get the Activator Template: <a style="color:#103a51" href="http://typesafe.com/activator/template/reactive-stocks-java8">Reactive Stocks (Java 8)</a><br>
+                            <small>http://typesafe.com/activator/template/reactive-stocks-java8</small></li>
                         <li>Akka Actors for thread-safe state and non-request based events</li>
                         <li>Play Framework for Reactive Composition, Reactive Push, and a JavaScript UI</li>
                     </ul>
                 </section>
 
-                <section data-background="assets/typesafe-logo-reverse.png" data-background-color="#f16665" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
+                <section data-background="assets/typesafe-logo-reverse.png" data-background-color="#3e515e" data-background-size="15%" data-background-repeat="no-repeat" data-background-position="24px 95%">
                     <h3 class="tsWhite">Get Started with Activator</h3>
 
                     <ul class="tsWhite">
-                        <li>Hello Akka (Java 8)  *** TODO ***</li>
-                        <li>Go Reactive with Java 8 and Play Framework *** TODO ***</li>
-                        <li>Finite State Machines with Actors and Java 8  *** TODO ***</li>
-                        <li>Supervision with Actors and Java 8  *** TODO ***</li>
-                        <li>Akka Persistence with Actors and Java 8  *** TODO ***</li>
+                        <li><a href="http://typesafe.com/activator/template/hello-akka-java8">Hello Akka! (Java 8)</a><br>
+                            <small>http://typesafe.com/activator/template/hello-akka-java8</small></li>
+                        <li><a href="http://typesafe.com/activator/template/reactive-java8-play">Go Reactive with Java 8 &amp; Play Framework</a><br>
+                            <small>http://typesafe.com/activator/template/reactive-java8-play</small></li>
+                        <li><a href="http://typesafe.com/activator/template/akka-supervision-java-lambda">Akka Supervision in Java with Lambdas</a><br>
+                             <small>http://typesafe.com/activator/template/akka-supervision-java-lambda</small></li>
+                        <li><a href="http://typesafe.com/activator/template/akka-sample-fsm-java-lambda">Akka FSM in Java with Lambdas</a><br>
+                            <small>http://typesafe.com/activator/template/akka-sample-fsm-java-lambda</small></li>
+                        <li><a href="http://typesafe.com/activator/template/akka-sample-persistence-java-lambda">Akka Persistence Samples in Java with Lambdas</a><br>
+                            <small>http://typesafe.com/activator/template/akka-sample-persistence-java-lambda</small></li>
+                        <li><a href="http://typesafe.com/activator/template/reactive-stocks-java8">Reactive Stocks (Java 8)</a><br>
+                            <small>http://typesafe.com/activator/template/reactive-stocks-java8</small></li>
                     </ul>
                 </section>
 
